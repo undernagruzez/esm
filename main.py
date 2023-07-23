@@ -18,9 +18,22 @@ class NO2Measurement:
     def __init__(self, timestamp, value):
         self.timestamp = pd.to_datetime(timestamp)
         self.value_ug_by_m3 = int(value)
+        self.value_ppb = self.convert_to_ppb()
 
     def convert_to_ppb(self):
-        return self.value_ug_by_m3 / 46.0055
+        # Constants
+        molarMassNO2 = 46.0055  # g/mol
+        pressureAir = 1013  # hPa
+        idealGasConstant = 8.3144  # J/(K*mol) = (m^3*Pa)/(K*mol)
+        temperatureAir = 300  # K
+
+        # Compute molar concentrations
+        molarConcentrationAir = (pressureAir * 100) / (idealGasConstant * temperatureAir)
+        molarConcentrationNO2 = (self.value_ug_by_m3 * 1e-6) / molarMassNO2
+
+        # Compute mixing ratio in ppb
+        return (molarConcentrationNO2 / molarConcentrationAir) * 1e9
+        #return self.value_ug_by_m3 / 46.0055
 
 
 def read_traffic_csv_to_data_model(csv_file):
@@ -80,7 +93,6 @@ def plot_measurements(csv_files, traffic_data):
 
     for file in csv_files:
         measurements = read_no2_csv_file(file)
-
         file_name = os.path.splitext(os.path.basename(file))[0]
 
         ax1.plot([m.timestamp for m in measurements], [m.convert_to_ppb() for m in measurements], label=f"{file_name} (NO2)")
@@ -105,7 +117,7 @@ def plot_measurements(csv_files, traffic_data):
 
     ax1.xaxis.set_major_locator(HourLocator(interval=1))
     ax1.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d %H:%M'))
-    ax1.yaxis.set_major_locator(MultipleLocator(base=0.05))
+    ax1.yaxis.set_major_locator(MultipleLocator(base=2))
 
     lines, labels = ax1.get_legend_handles_labels()
     lines2, labels2 = ax2.get_legend_handles_labels()
