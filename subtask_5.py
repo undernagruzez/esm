@@ -7,11 +7,11 @@ from scipy.spatial import distance_matrix
 
 if __name__ == "__main__":
 
-    data_STA = pd.read_csv('data/no2/allach.csv', delimiter=';', header=None)
-    data_LHA = pd.read_csv('data/no2/johanneskirchen.csv', delimiter=';', header=None)
-    data_LOT = pd.read_csv('data/no2/landshuter_allee.csv', delimiter=';', header=None)
-    data_JOH = pd.read_csv('data/no2/lothstrasse.csv', delimiter=';', header=None)
-    data_ALL = pd.read_csv('data/no2/stachus.csv', delimiter=';', header=None)
+    data_STA = pd.read_csv('data/no2/stachus.csv', delimiter=';', header=None)
+    data_LHA = pd.read_csv('data/no2/landshuter_allee.csv', delimiter=';', header=None)
+    data_LOT = pd.read_csv('data/no2/lothstrasse.csv', delimiter=';', header=None)
+    data_JOH = pd.read_csv('data/no2/johanneskirchen.csv', delimiter=';', header=None)
+    data_ALL = pd.read_csv('data/no2/allach.csv', delimiter=';', header=None)
 
     for data in [data_STA, data_LHA, data_LOT, data_JOH, data_ALL]:
         data[0] = pd.to_datetime(data[0] + ' ' + data[1], format="%d.%m.%Y %H:%M")
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     normed_conc = (estimated_concentrations - np.min(estimated_concentrations)) / (np.max(estimated_concentrations) - np.min(estimated_concentrations))
 
     # Create a colormap
-    cmap = plt.get_cmap("viridis")
+    cmap = plt.get_cmap("YlOrRd")
 
     colored_conc = cmap(normed_conc)
 
@@ -106,3 +106,28 @@ if __name__ == "__main__":
 
     map_filename = "output_map.html"
     m.save(map_filename)
+
+    fig, ax = plt.subplots(figsize=(20, 20))
+    cmap = plt.get_cmap("YlOrRd")
+    colored_conc = cmap(estimated_concentrations)
+
+    plt.imshow(estimated_concentrations, cmap=cmap, extent=[
+        np.min(grid_lons) - 0.005,
+        np.max(grid_lons) + 0.005,
+        np.min(grid_lats) - 0.005,
+        np.max(grid_lats) + 0.005
+    ])
+    plt.colorbar(label="NO2 Concentration (ppb)")
+    plt.xlabel("Longitude")
+    plt.ylabel("Latitude")
+    plt.title("NO2 Concentration Heatmap")
+
+    for i in range(n_points):
+        for j in range(n_points):
+            lat, lon = grid_lats[i, j], grid_lons[i, j]
+            concentration = estimated_concentrations[i, j]
+            plt.text(lon, lat, f"{concentration:.2f}", ha='center', va='center', fontsize=8, color='black')
+
+    heatmap_filename = "heatmap.png"
+    plt.savefig(heatmap_filename, dpi=300, bbox_inches="tight")
+    plt.close()
