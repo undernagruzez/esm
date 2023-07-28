@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_f70326a02211076d588b3cb82d4de9f2 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    
+                <style>
+                    .leaflet-image-layer {
+                        /* old android/safari*/
+                        image-rendering: -webkit-optimize-contrast;
+                        image-rendering: crisp-edges; /* safari */
+                        image-rendering: pixelated; /* chrome */
+                        image-rendering: -moz-crisp-edges; /* firefox */
+                        image-rendering: -o-crisp-edges; /* opera */
+                        -ms-interpolation-mode: nearest-neighbor; /* ie */
+                    }
+                </style>
+            
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_f70326a02211076d588b3cb82d4de9f2" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_f70326a02211076d588b3cb82d4de9f2 = L.map(
+                "map_f70326a02211076d588b3cb82d4de9f2",
+                {
+                    center: [48.159251999999995, 11.553695999999999],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 13,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_30aeedc7167161dc1720b6b720d0279a = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_f70326a02211076d588b3cb82d4de9f2);
+        
+    
+            var image_overlay_8795fff2ce5ba79cfa21e47cbaeb2868 = L.imageOverlay(
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAADNklEQVR42nVUa0tVQRQ9v6Hv0RcRgsRAsCyy7GVmZd3SzEzsgdhLwp6IhYiVmA9Kk5uaaGrZg7LCkkp6QQZZRFGZPSwoJZCIiKI4M6u9Zs6592p0YXHOPTOz9tp79l6OagxANa2EOrkKqlnQmg7Vvhqqcw3U+bVQXTnQ3Ruhb2yG7i2Avr3Dgu83t0L35ENf2wR9dT3U5Rw46sQKqAYh9YlJeioD6owl1FdyLdm93dAP90M/KrF4UAR9dyf0re2WVIJawuNpUPXLoYICkpOYpG2i8lyWJaSix2XQg0Hody32+awCuq8Y+k6hDRgiPLYUBrXLLBiAxFTL1C9m2/ReVEN/6QV+DUMPd0MP1FrFDHY9z6bcRcLqVKiqceA3BqFq1pSkTHmwHvrDaauwv9SqY7qShbq0DupCNhy3IgXuoUVwy5LhliyEe2AB3OL5Fvwv60Y5y8CaihJzSZ4iBjOXJ+VRZ7OE0CcqEoJdc+EWzIGbNwtuzgy4mdMtcmfCLUwygQ15QyDcEaw10W7hjCHbkmgPB+LxM2kqRmMm49PEKIxEReNHYizcrAS7rzzFloSXyUtky7WkmwCWcN88qyBflGUn4E9qHL7FT8HAhGiUOLE4Ivg8Kcp8N0FZjsrFYdKGQKiPxyrcNhvuBlGYMQ2/U+LwPSHGqOR/Uwau75F9pcn/Eno9/P8akph1lDVTcLaSdIC5pCqvC/wWi0g7fMuMyhsmMVWwBIR8CxH4/UqiYET9/AuSCXNUzRL4vWjIyyNANVwjSXBsrXyC0A13ZBo4qi4tPCU+6rxx9CeGh3lA+sz0nDSwAd/9HvRgzWG8QbR4/UXH4ZSwkWkCNAOC40an4chxjZPCJpdpcUIptHgp+Epk0RwgwdPD0G8aoYc6xByaoV/W2NG7v9fOuec2JHZC3U4iKmIq4hpmE+eXZENtwNd+mJ889cdO6FdHw6RUTMcRX3RMQel9VOWT0TAZmfb0vBL6fSv0SA/0aJ88b1ildJsnB+2eCF90jCqfjGly+KmOUWmiPEQ1TJle+LYJ+nWd9UMq9I2WAkSlE7o5ugbt3ifkBqZMBTzI1ElCMAhdm2tMmTZGhUL4F0Edpo21ERhZAAAAAElFTkSuQmCC",
+                [[48.06932394244604, 11.418883953126251], [48.24918005755395, 11.688508046873746]],
+                {"opacity": 0.6}
+            ).addTo(map_f70326a02211076d588b3cb82d4de9f2);
+        
+    
+            var marker_b51ff67dedf003126dbc61f21bd6d460 = L.marker(
+                [48.13732, 11.56481],
+                {}
+            ).addTo(map_f70326a02211076d588b3cb82d4de9f2);
+        
+    
+        var popup_31d9c94b9ece7a75570045114af2bf74 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b80470713d1404d10ab226cd2ae8e889 = $(`<div id="html_b80470713d1404d10ab226cd2ae8e889" style="width: 100.0%; height: 100.0%;">Stachus - Average NO2 Concentration: 31.29 ppb</div>`)[0];
+                popup_31d9c94b9ece7a75570045114af2bf74.setContent(html_b80470713d1404d10ab226cd2ae8e889);
+            
+        
+
+        marker_b51ff67dedf003126dbc61f21bd6d460.bindPopup(popup_31d9c94b9ece7a75570045114af2bf74)
+        ;
+
+        
+    
+    
+            var marker_93c99ee221e2417a1f44edd2b4be1af5 = L.marker(
+                [48.14955, 11.53653],
+                {}
+            ).addTo(map_f70326a02211076d588b3cb82d4de9f2);
+        
+    
+        var popup_0a4cacb22191ea972aacb8dd7b5f63ec = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_aa44a8fc24a89d3b16dbcf7a485d00c0 = $(`<div id="html_aa44a8fc24a89d3b16dbcf7a485d00c0" style="width: 100.0%; height: 100.0%;">Landshuter Allee - Average NO2 Concentration: 57.17 ppb</div>`)[0];
+                popup_0a4cacb22191ea972aacb8dd7b5f63ec.setContent(html_aa44a8fc24a89d3b16dbcf7a485d00c0);
+            
+        
+
+        marker_93c99ee221e2417a1f44edd2b4be1af5.bindPopup(popup_0a4cacb22191ea972aacb8dd7b5f63ec)
+        ;
+
+        
+    
+    
+            var marker_cbd2f6b29347474a3e89b81e5551de29 = L.marker(
+                [48.15455, 11.55466],
+                {}
+            ).addTo(map_f70326a02211076d588b3cb82d4de9f2);
+        
+    
+        var popup_c5f378de4d19e0f0b80872b315d7ec03 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_aec9cf52712a351ef2bb99f8a949abf2 = $(`<div id="html_aec9cf52712a351ef2bb99f8a949abf2" style="width: 100.0%; height: 100.0%;">Lothstrasse - Average NO2 Concentration: 15.56 ppb</div>`)[0];
+                popup_c5f378de4d19e0f0b80872b315d7ec03.setContent(html_aec9cf52712a351ef2bb99f8a949abf2);
+            
+        
+
+        marker_cbd2f6b29347474a3e89b81e5551de29.bindPopup(popup_c5f378de4d19e0f0b80872b315d7ec03)
+        ;
+
+        
+    
+    
+            var marker_6be70d15cc1680f350008ea154455a3c = L.marker(
+                [48.17319, 11.64804],
+                {}
+            ).addTo(map_f70326a02211076d588b3cb82d4de9f2);
+        
+    
+        var popup_87383c3752e0f865d500ff1c68f1d5e1 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2efafe5b0dee30a9a70ca60af77a06a2 = $(`<div id="html_2efafe5b0dee30a9a70ca60af77a06a2" style="width: 100.0%; height: 100.0%;">Johanneskirchen - Average NO2 Concentration: 10.12 ppb</div>`)[0];
+                popup_87383c3752e0f865d500ff1c68f1d5e1.setContent(html_2efafe5b0dee30a9a70ca60af77a06a2);
+            
+        
+
+        marker_6be70d15cc1680f350008ea154455a3c.bindPopup(popup_87383c3752e0f865d500ff1c68f1d5e1)
+        ;
+
+        
+    
+    
+            var marker_02a583207ac7d7059c9c33d4f050cee7 = L.marker(
+                [48.18165, 11.46444],
+                {}
+            ).addTo(map_f70326a02211076d588b3cb82d4de9f2);
+        
+    
+        var popup_d215cf4f441fb682df004c868f20d3f4 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e229d6b47a4a5b62565151be907635c3 = $(`<div id="html_e229d6b47a4a5b62565151be907635c3" style="width: 100.0%; height: 100.0%;">Allach - Average NO2 Concentration: 11.08 ppb</div>`)[0];
+                popup_d215cf4f441fb682df004c868f20d3f4.setContent(html_e229d6b47a4a5b62565151be907635c3);
+            
+        
+
+        marker_02a583207ac7d7059c9c33d4f050cee7.bindPopup(popup_d215cf4f441fb682df004c868f20d3f4)
+        ;
+
+        
+    
+</script>
+</html>
